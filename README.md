@@ -67,7 +67,7 @@ It consists of four parts: lexical and grammar analysis, semantic analysis，int
 
 #### Achieve ####
 
-* Lexical and grammar analysis:
+* Lexical and grammar analysis:	
 	integer, floating point, and the regular expression of the identifier are as follows:
 ``` c
     int  	[+-]?[0-9]+
@@ -95,7 +95,7 @@ It consists of four parts: lexical and grammar analysis, semantic analysis，int
 
 	for more,you can see in lexical.l and syntic.y
 
-* Semantic analysis:
+* Semantic analysis:		
 	The semantic analysis is realized by traversing the abstract syntax tree from top to bottom,supports detection of 18 error types.
 	supports multi-scope,for example, when traversing a function within the time, that to enter a new scope, the scope of the stack, leaving the current scope that is to leave the function, the scope of the stack, the code fragment is as follows:
 ``` c
@@ -114,7 +114,7 @@ It consists of four parts: lexical and grammar analysis, semantic analysis，int
 ```
 	for more,you can see in semantic.h and semantic.c
 	
-* Intermediate code generation and optimization:
+* Intermediate code generation and optimization:	
 	the node structure of the intermediate code is as follows:
 ``` c
 	struct InterCode
@@ -136,13 +136,13 @@ It consists of four parts: lexical and grammar analysis, semantic analysis，int
 	t3 := t1 + #1;		// the above two intermediate codes can be combined into one
 ```
 
-* Object code generation:
+* Object code generation:	
 	the key to object code generation is register allocation, parameter passing and variable protection.
 
-	register allocation algorithm:
+	register allocation algorithm:	
 	The register allocation uses the associated mapping table. All the variables are saved to the data segment, the use of the register group is s0 ~ s7, through the associated mapping table, the register with the data section of the variables associated with one. When you need to encounter a variable, first in the association table to find out whether there is an associated register, if so, you can directly use the associated register to operate, otherwise, see whether there is a register associated with the variables, if there is , Which associates the register with the current variable, otherwise it means that each register in the register group corresponds to a variable, and it is necessary to free the vacant space by removing one of them.
 	
-	parameter passing and variable protection:
+	parameter passing and variable protection:	
 	parameter transfer using a0 ~ a3 register, if the parameters are more than four error, call the function before the parameters will be saved to a0 ~ a3 register, in the function, followed by a0 ~ a3 register parameters taken out to achieve the parameters of the transfer. The protection of the variables through the stack to protect, in turn, will protect the variables pushed stack, when the implementation of the function away from the time, the variables will be restored stack.
 
 #### Example ####
