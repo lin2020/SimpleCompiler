@@ -68,12 +68,13 @@ It consists of four parts: lexical and grammar analysis, semantic analysis，int
 #### Achieve ####
 
 * Lexical and grammar analysis:
-	Integer, floating point, and the regular expression of the identifier are as follows:
+	integer, floating point, and the regular expression of the identifier are as follows:
 ``` c
     int  	[+-]?[0-9]+
     float  	[+-]?([0-9]*\.?[0-9]+|[0-9]+\.)
     id 		[_A-Za-z][A-Za-z0-9_]*
 ```
+
 	The nodes that define the syntax tree are as follows:
 ``` c
     typedef struct NODE 	
@@ -91,6 +92,7 @@ It consists of four parts: lexical and grammar analysis, semantic analysis，int
 		struct NODE *brother;		
 	}node,*pnode,**ppnode;
 ```
+
 	for more,you can see in lexical.l and syntic.y
 
 * Semantic analysis:
@@ -113,7 +115,7 @@ It consists of four parts: lexical and grammar analysis, semantic analysis，int
 	for more,you can see in semantic.h and semantic.c
 	
 * Intermediate code generation and optimization:
-	The node structure of the intermediate code is as follows:
+	the node structure of the intermediate code is as follows:
 ``` c
 	struct InterCode
 	{
@@ -121,7 +123,7 @@ It consists of four parts: lexical and grammar analysis, semantic analysis，int
 		pOperand op1,op2,op3,relop; // operands
 	};
 ```
-	Code optimization is as follows:
+	code optimization is as follows:
 ``` c
 	/* delete the code that can not be reached */
 	RETURN n
@@ -135,11 +137,13 @@ It consists of four parts: lexical and grammar analysis, semantic analysis，int
 ```
 
 * Object code generation:
-	The key to object code generation is register allocation, parameter passing and variable protection.
-##### Register allocation algorithm #####
+	the key to object code generation is register allocation, parameter passing and variable protection.
+
+	register allocation algorithm:
 	The register allocation uses the associated mapping table. All the variables are saved to the data segment, the use of the register group is s0 ~ s7, through the associated mapping table, the register with the data section of the variables associated with one. When you need to encounter a variable, first in the association table to find out whether there is an associated register, if so, you can directly use the associated register to operate, otherwise, see whether there is a register associated with the variables, if there is , Which associates the register with the current variable, otherwise it means that each register in the register group corresponds to a variable, and it is necessary to free the vacant space by removing one of them.
-##### Parameter passing and variable protection #####
-	Parameter transfer using a0 ~ a3 register, if the parameters are more than four error, call the function before the parameters will be saved to a0 ~ a3 register, in the function, followed by a0 ~ a3 register parameters taken out to achieve the parameters of the transfer. The protection of the variables through the stack to protect, in turn, will protect the variables pushed stack, when the implementation of the function away from the time, the variables will be restored stack.
+	
+	parameter passing and variable protection:
+	parameter transfer using a0 ~ a3 register, if the parameters are more than four error, call the function before the parameters will be saved to a0 ~ a3 register, in the function, followed by a0 ~ a3 register parameters taken out to achieve the parameters of the transfer. The protection of the variables through the stack to protect, in turn, will protect the variables pushed stack, when the implementation of the function away from the time, the variables will be restored stack.
 
 #### Example ####
 download the codes, build and run:
