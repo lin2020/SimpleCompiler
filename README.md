@@ -67,7 +67,7 @@ It consists of four parts: lexical and grammar analysis, semantic analysis，int
 
 #### Achieve ####
 
-* Lexical and grammar analysis:	
+* Lexical and grammar analysis:		
 	integer, floating point, and the regular expression of the identifier are as follows:
 ``` c
     int  	[+-]?[0-9]+
